@@ -1,0 +1,23 @@
+<nav th:fragment="navigation" xmlns:th="http://www.w3.org/1999/xhtml" class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item" th:each="menu : ${menuNavs}">
+            <a th:if="${menu.rootId} == 0 and ${#strings.substring(menu.url, 0, 1)} != '#'" th:href="@{~/} + ${menu.url}" class="nav-link">
+                <i class="menu-icon mdi mdi-television"></i>
+                <span class="menu-title" th:text="${menu.name}"></span>
+                <i th:if="${#strings.substring(menu.url, 0, 1)} == '#'" class="menu-arrow"></i>
+            </a>
+            <a th:if="${menu.rootId} == 0 and ${#strings.substring(menu.url, 0, 1)} == '#'" th:href="${menu.url}" class="nav-link" data-toggle="collapse" aria-expanded="false" th:aria-controls="${#strings.substringAfter(menu.url, '#')}">
+                <i class="menu-icon mdi mdi-television"></i>
+                <span class="menu-title" th:text="${menu.name}"></span>
+                <i th:if="${#strings.substring(menu.url, 0, 1)} == '#'" class="menu-arrow"></i>
+            </a>
+            <div class="collapse" th:id="${#strings.substring(menu.url, 0, 1)} == '#' ? ${#strings.substringAfter(menu.url, '#')} : @{~/} + ${menu.url} ">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item" th:each="submenu : ${menuNavs}" th:if="${submenu.rootId} == ${menu.id}">
+                        <a class="nav-link" th:href="@{~/} + ${submenu.url}" th:text="${submenu.name}"></a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>

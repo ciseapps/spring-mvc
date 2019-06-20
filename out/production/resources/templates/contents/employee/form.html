@@ -1,0 +1,133 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Employee Form</h4>
+                    <form class="form-sample" th:action="@{~/employee/save}" th:object="${mv}" method="post">
+                        <p class="card-description">
+                            Personal info
+                        </p>
+                        <input type="hidden" class="form-control" th:field="*{id}" th:vale="*{id}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Nik</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" th:field="*{nik}" th:readonly="*{id > 0}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('nik')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('nik')}" th:errors="*{nik}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Nama</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{nama}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('nama')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Department</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{departmentId}">
+                                            <option value="" selected disabled >Department</option>
+                                            <option th:each="i : ${departmentList}" th:value="${i?.departmentId}" th:text="${i?.departmentName}" th:selected="${i?.departmentId == departmentId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('departmentId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('departmentId')}" th:errors="*{departmentId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Jabatan</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{jabatanId}">
+                                            <option value="" selected disabled >Jabatan</option>
+                                            <option th:each="i : ${jabatanList}" th:value="${i?.jabatanId}" th:text="${i?.jabatanName}" th:selected="${i?.jabatanId == jabatanId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('jabatanId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('jabatanId')}" th:errors="*{jabatanId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-description">
+                            User info
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{username}" th:readonly="*{id > 0}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('username')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Role</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{roleId}">
+                                            <option value="" selected disabled >Jabatan</option>
+                                            <option th:each="i : ${roleList}" th:value="${i?.roleId}" th:text="${i?.roleName}" th:selected="${i?.roleId==roleId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('roleId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" th:if="*{id == 0}">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" th:field="*{password}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('password')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Confirm</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" th:field="*{passwordConfirm}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('passwordConfirm')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        function cancel() {
+            window.location.replace(/*[[@{~/employee}]]*/);
+        }
+
+    </script>
+</div>

@@ -1,0 +1,177 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Approval Dept Head Procurement Form</h4>
+                    <form id="form-proc" class="form-sample" th:action="@{~/approval/save_head_prc}" th:object="${procurement}" method="post" enctype="multipart/form-data">
+                        <input th:if="*{requestId > 0}" type="hidden" th:field="*{requestId}"/>
+                        <h4 class="card-description">
+                            Product Request
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Product</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{productName}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Qty</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{qty}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Request By</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nameReq}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Due Date</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{dueDate}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Departement</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{departmentName}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="card-description">
+                            Vendor and Offer Doc
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Vendor</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{vendorName}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Offer Doc</label>
+                                    <div class="col-sm-9">
+                                        <a href="#" class="form-control">Download</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Qty</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{qty}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Harga</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{harga}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="card-description">
+                            Approval
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Head Dept.</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nikKdep}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Approve Date</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{apvKdepDate}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nameKdep}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Procurement</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nikProc}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Approve Date</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{apvProcDate}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nameProc}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-action"></div>
+                        <button type="submit" class="btn btn-success mr-2">Approve</button>
+                        <button type="button" th:data-id="*{requestId}" onclick="reject(this.getAttribute('data-id'))" class="btn btn-danger mr-2">Reject</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript">
+
+        /*
+        table of content
+        - load data vendor by product
+        */
+
+        function cancel() {
+            window.location.replace(/*[[@{~/approval/head_prc}]]*/);
+        }
+
+        function reject(id) {
+            swal({
+                title: "Are you sure reject this request?",
+                text: "Once reject, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: /*[[@{~/procurement/reject}]]*/,
+                        type: "POST",
+                        data: JSON.stringify({requestId: id}),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(){
+                            cancel();
+                        }
+                    });
+                } else {
+                    swal("Your request is safe!");
+                }
+            });
+        };
+
+    </script>
+    </div>
+</div>

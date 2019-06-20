@@ -1,0 +1,56 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Rolemenu Form</h4>
+                    <form class="form-sample" th:action="@{~/rolmen/save}" th:object="${rolemenu}" method="post">
+                        <input th:if="*{roleMenuId > 0}" type="hidden" th:field="*{roleMenuId}"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Role</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{roleId}" th:required="true">
+                                            <option value="" selected disabled >Role</option>
+                                            <option th:each="i : ${roles}" th:value="${i?.roleId}" th:text="${i?.roleName}" th:selected="${i?.roleId == roleId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('roleId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Menu</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{menuId}" th:required="true">
+                                            <option value="" selected disabled >Menu</option>
+                                            <option th:each="i : ${menus}" th:value="${i?.menuId}" th:text="${i?.menuName}" th:selected="${i?.menuId == menuId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('menuId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('menuId')}" th:errors="*{menuId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        function cancel() {
+            window.location.replace(/*[[@{~/rolmen}]]*/);
+        }
+
+    </script>
+</div>

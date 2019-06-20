@@ -1,0 +1,202 @@
+<div th:fragment="procurement" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <form id="form-proc" class="form-sample" th:action="@{~/approval/save_procurement}"
+                          th:object="${procurement}" method="post" enctype="multipart/form-data">
+                        <input th:if="*{requestId > 0}" type="hidden" th:field="*{requestId}"/>
+                        <h4 class="card-description">
+                            Request
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Request By</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nameReq}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Due Date</label>
+                                    <label class="col-sm-9 col-form-label pull-right" th:text="*{dueDate}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Departement</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{departmentName}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="card-description">
+                            Product and Vendor
+                        </h4>
+                        <div class="row vendor" th:each="row, iStat : *{detail}">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Product</label>
+                                    <div class="col-sm-9">
+                                        <label class="form-control col-sm-12 col-form-label"
+                                               th:text="${row?.product.productName}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Vendor</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control vendor">
+                                            <option selected disabled>Select Vendor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Qty</label>
+                                    <div class="col-sm-9">
+                                        <label class="form-control col-sm-12 col-form-label pull-right qty"
+                                               th:text="${row?.qty}"
+                                               th:name="${'productQty[' + iStat.index + ']'}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Harga</label>
+                                    <div class="col-sm-9">
+                                        <label class="form-control col-sm-12 col-form-label harga"
+                                               th:text="*{harga}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Total Harga</label>
+                                    <div class="col-sm-9">
+                                        <label class="form-control col-sm-12 col-form-label harga-total"
+                                               th:text="*{harga}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="card-description">
+                            Approval
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Head Dept.</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nikKdep}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Approve Date</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{apvKdepDate}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nameKdep}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-action"></div>
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript">
+
+        /*
+        table of content
+        - load data vendor by product
+        */
+
+        function cancel() {
+            window.location.replace(/*[[@{~/approval/prc_admin}]]*/);
+        }
+
+        (function($) {
+
+            loadVendor();
+
+            function loadVendor() {
+                $(".se-pre-con").fadeIn("slow");
+
+                var products = /*[[${procurement.detail}]]*/ 0;
+
+                const selects = $('form').find('select.vendor');
+
+                $.each(products, function(i, v){
+                    $(selects[i]).on('change', function() {
+                        var parent = $(this).parents('div.vendor');
+                        var selected = $(this).find('option:selected');
+                        var harga = selected.data('harga');
+                        var qty = $($(parent).find('label.qty')[0]).text();
+                        console.log("harga : " + harga);
+                        console.log("qty : " + qty);
+                        $($(parent).find('label.harga')[0]).text(harga);
+                        if (harga != undefined) {
+                            $($(parent).find('label.harga-total')[0]).text(qty * harga);
+                        }
+
+                    });
+                    $.ajax({
+                        url: /*[[@{~/procurement} + '/load_vendor_by_product']]*/,
+                        type: "POST",
+                        data: JSON.stringify({productId: v.productId}),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(res, data) {
+                            console.log(res);
+                            var html = '<option></option>';
+                            $.each( res, function( key, value ) {
+                                html += '<option value="' + value.vendorId + '" data-harga="'+ value.harga +'">' + value.vendorName + '</option>';
+                            });
+
+                            $(selects[i]).html(html);
+                            $(selects[i]).select2({
+                                placeholder: 'Select an vendor'
+                            });
+                            console.log(v.vendorId);
+                            $(selects[i]).select2('val', v.vendorId);
+                            $(".se-pre-con").fadeOut("slow");
+                        }
+                    });
+                    // onchange
+                });
+
+                /*
+                $('#vendor').on('change', function(){
+                    var selected = $(this).find('option:selected');
+                    var harga = selected.data('harga');
+                    var qty = $('#form-proc input[name=qty]').val();
+                    console.log($(this).val());
+                    console.log(harga);
+                    console.log(qty);
+                    $('#form-proc input[name=harga]').val(qty * harga);
+                });
+                */
+            }
+
+        })(jQuery)
+
+
+
+
+
+
+
+
+        </script>
+    </div>
+</div>

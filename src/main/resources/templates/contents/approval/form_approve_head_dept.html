@@ -1,0 +1,96 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Approval Dept Head Form</h4>
+                    <form id="form-proc" class="form-sample" th:action="@{~/approval/save_head_dept}" th:object="${procurement}" method="post" enctype="multipart/form-data">
+                        <input th:if="*{requestId > 0}" type="hidden" th:field="*{requestId}"/>
+                        <h4 class="card-description">
+                            Request
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Request By</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{nameReq}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Due Date</label>
+                                    <label class="col-sm-9 col-form-label pull-right" th:text="*{dueDate}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Departement</label>
+                                    <label class="col-sm-9 col-form-label" th:text="*{departmentName}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="card-description">
+                            Product
+                        </h4>
+                        <div class="row" th:each="row, iStat : *{detail}">
+                            <div class="col-md-9">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label" th:text="${row?.product.productName}"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-form-label pull-right" th:text="${row?.qty}" th:name="${'productQty[' + iStat.index + ']'}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-action"></div>
+                        <button type="submit" class="btn btn-success mr-2">Approve</button>
+                        <button type="button" th:data-id="*{requestId}" onclick="reject(this.getAttribute('data-id'))" class="btn btn-danger mr-2">Reject</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript">
+
+        /*
+        table of content
+        - load data vendor by product
+        */
+
+        function cancel() {
+            window.location.replace(/*[[@{~/approval/head_dept}]]*/);
+        }
+
+        function reject(id) {
+            swal({
+                title: "Are you sure reject this request?",
+                text: "Once reject, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: /*[[@{~/procurement/reject}]]*/,
+                        type: "POST",
+                        data: JSON.stringify({requestId: id}),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(){
+                            cancel();
+                        }
+                    });
+                } else {
+                    swal("Your row is safe!");
+                }
+            });
+        };
+
+    </script>
+    </div>
+</div>

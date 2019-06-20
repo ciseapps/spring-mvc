@@ -1,0 +1,127 @@
+<div th:fragment="procurement" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Approval Dept Head Table</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                <input th:value="${search}" id="search-key" type="text" class="form-control pull-right" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="action">Action</th>
+                                <th>Request By</th>
+                                <th>Department</th>
+                                <th>Due Date</th>
+                                <th>Dept Head</th>
+                                <th>Approve Dept Head</th>
+                                <th>Created By</th>
+                                <th>Created Date</th>
+                                <th>Modified By</th>
+                                <th>Modified Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${page.content.empty}">
+                                <td colspan="5"> No Data Available</td>
+                            </tr>
+                            <tr th:each="row : ${page.content}">
+                                <td class="action">
+                                    <div>
+                                        <a th:href="@{~/approval/form_procurement?id=} + ${row.requestId}" class="btn btn-warning mr-2"><i class="fa fa-edit"></i></a>
+                                    </div>
+                                </td>
+                                <td th:text="${#strings.defaultString(row?.requestBy?.nama, '')}"></td>
+                                <td th:text="${#strings.defaultString(row?.requestBy?.department?.departmentName, '')}"></td>
+                                <td th:text="${#dates.format(row?.dueDate, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${#strings.defaultString(row?.headDeptEmpl?.nama, '')}"></td>
+                                <td th:text="${row?.apvKdepDate}"></td>
+                                <td th:text="${row?.createdBy}"></td>
+                                <td th:text="${row?.createdDate}"></td>
+                                <td th:text="${row?.modifiedBy}"></td>
+                                <td th:text="${row?.modifiedDate}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="pageable pull-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        function deleteConfirm(id, user, product){
+            swal({
+                title: "Are you sure delete " + id + "?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: /*[[@{~/procurement/delete}]]*/,
+                        type: "POST",
+                        data: JSON.stringify({requestId: id}),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(){
+                            document.location.reload(true);
+                        }
+                    });
+                } else {
+                    swal("Your row is safe!");
+                }
+            });
+        };
+
+        const keySearch = $('#search-key').val();
+        const totalPage = /*[[${page.totalPages}]]*/;
+        var startPage = /*[[(${page.number} + 1)]]*/;
+
+        if ((totalPage + 1) > 1 && totalPage < startPage) {
+            window.location.replace(/*[+[[@{~/approval/procurement}]] + '?page=' + (totalPage)+]*/);
+        } else {
+            $('.pageable').twbsPagination({
+                totalPages: (totalPage == 0 ? totalPage + 1 : totalPage),
+                startPage:  startPage,
+                initiateStartPageClick: false,
+                onPageClick: function (evt, page) {
+                    if (keySearch == "") {
+                        window.location.replace(/*[+[[@{~/approval/procurement}]] + '?page=' + (page)+]*/);
+                    } else {
+                        window.location.replace(/*[+[[@{~/approval/procurement}]] + '?page=' + (page)+'&search='+keySearch+]*/);
+                    }
+                }
+            });
+        }
+
+        $('#search-key').keydown(function(e) {
+            var key = e.which;
+            if (key == 13) {
+                var keySearch = $(this).val();
+                if (keySearch !== "") {
+                    window.location.replace(/*[+[[@{~/approval/procurement}]] + '?search=' + keySearch+]*/);
+                } else {
+                    window.location.replace(/*[+[[@{~/approval/procurement}]] +]*/);
+                }
+            }
+        });
+
+    </script>
+</div>

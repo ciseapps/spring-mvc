@@ -1,0 +1,66 @@
+/* form */
+.error-field {
+    margin-top:10px;
+    font-size:10px;
+}
+
+/* table */
+.table td.action, .table th.action {
+    max-width: 100px;
+}
+
+/* table button action */
+td.action > div > a {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 35px;
+}
+td.action > div > a.btn > i.fa {
+    margin: 0 !important;
+}
+
+.pageable {
+    margin-top: 10px;
+}
+
+.content-wrapper {
+    min-height: 550px;
+}
+
+/* loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(images/eclipse-loader.gif) center no-repeat #fff;
+}
+
+/* select2 */
+.select2{
+    max-width: 100%;
+}
+
+/* select2 */
+span.select2-selection__rendered {
+    font-size: smaller !important;
+}
+
+/* select2 */
+form > h4.card-description {
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+
+/* select2 */
+.space-action {
+    margin-top: 15px;
+}
+
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand img {
+    width: 70% !important;
+}

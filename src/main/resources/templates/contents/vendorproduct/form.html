@@ -1,0 +1,68 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Vendor Product Form</h4>
+                    <form class="form-sample" th:action="@{~/venpro/save}" th:object="${vendorproduct}" method="post">
+                        <input th:if="*{vendorProductId > 0}" type="hidden" th:field="*{vendorProductId}"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Vendor</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{vendorId}" th:required="true">
+                                            <option value="" selected disabled >Vendor</option>
+                                            <option th:each="i : ${vendors}" th:value="${i?.vendorId}" th:text="${i?.vendorName}" th:selected="${i?.vendorId == vendorId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('vendorId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('vendorId')}" th:errors="*{vendorId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Product</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" th:field="*{productId}" th:required="true">
+                                            <option value="" selected disabled >Vendor</option>
+                                            <option th:each="i : ${products}" th:value="${i?.productId}" th:text="${i?.productName}" th:selected="${i?.productId == productId}"></option>
+                                        </select>
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('productId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Harga</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{harga}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('harga')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('harga')}" th:errors="*{harga}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        function cancel() {
+            window.location.replace(/*[[@{~/venpro}]]*/);
+        }
+
+    </script>
+</div>

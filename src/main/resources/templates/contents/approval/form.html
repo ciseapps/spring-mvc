@@ -1,0 +1,206 @@
+<div th:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml" class="content-wrapper">
+    <script th:inline="javascript">
+        window.history.forward(0);
+    </script>
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Procurement Form</h4>
+                    <form class="form-sample" th:action="@{~/procurement/save}" th:object="${procurement}" method="post">
+                        <input th:if="*{requestId > 0}" type="hidden" th:field="*{requestId}"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">VenproId</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{venproId}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('venproId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('venproId')}" th:errors="*{venproId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Qty</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{qty}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('qty')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Harga</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{harga}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('harga')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('harga')}" th:errors="*{harga}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">VenReqDoc</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{venReqDoc}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('venReqDoc')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('venReqDoc')}" th:errors="*{venReqDoc}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">InvoiceId</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{invoiceId}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('invoiceId')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('invoiceId')}" th:errors="*{invoiceId}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">InvoiceDoc</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{invoiceDoc}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('invoiceDoc')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('invoiceDoc')}" th:errors="*{invoiceDoc}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">StatusProc</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{statusProc}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('statusProc')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('statusProc')}" th:errors="*{statusProc}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">NikSvp</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{nikSvp}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('nikSvp')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('nikSvp')}" th:errors="*{nikSvp}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">NikKdep</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{nikKdep}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('nikKdep')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('nikKdep')}" th:errors="*{nikKdep}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">NikPickup</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{nikPickup}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('nikPickup')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('nikPickup')}" th:errors="*{nikPickup}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">NikReceive</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{nikReceive}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('nikReceive')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('nikReceive')}" th:errors="*{nikReceive}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">ApproveSvpDate</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{apvSvpDate}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('apvSvpDate')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('apvSvpDate')}" th:errors="*{apvSvpDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">ApproveKdepDate</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{apvKdepDate}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('apvKdepDate')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('apvKdepDate')}" th:errors="*{apvKdepDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">ApprovePickupDate</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{apvPickupDate}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('apvPickupDate')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('apvPickupDate')}" th:errors="*{apvPickupDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">ReceiveDate</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" th:field="*{receiveDate}">
+                                    </div>
+                                    <span class="col-sm-3 col-form-label" th:if="${#fields.hasErrors('receiveDate')}"></span>
+                                    <span class="col-sm-9 error error-field text-danger" th:if="${#fields.hasErrors('receiveDate')}" th:errors="*{receiveDate}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <button type="button" onclick="cancel()" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        function cancel() {
+            window.location.replace(/*[[@{~/procurement}]]*/);
+        }
+
+    </script>
+</div>

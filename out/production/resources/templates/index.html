@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Procurement</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{~/css/vendors/iconfonts/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/vendors/css/vendor.bundle.base.css}">
+    <link rel="stylesheet" th:href="@{~/css/vendors/css/vendor.bundle.addons.css}">
+    <link rel="stylesheet" th:href="@{~/css/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/vendors/bootstrap-datepicker/bootstrap-datepicker3.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css"  />
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" th:href="@{~/css/style.css}">
+    <link rel="stylesheet" th:href="@{~/css/app.css}">
+    <!-- endinject -->
+    <link rel="shortcut icon" th:href="@{~/images/trans-mini.png}" />
+
+    <script th:src="@{~/js/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{~/js/jquery.twbs.pagination.js}"></script>
+    <script th:src="@{~/js/sweetalert.min.js}"></script>
+    <script th:src="@{~/js/bootstrap-datepicker.min.js}"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
+    <script>
+        $(window).load(function() {
+            $(".se-pre-con").fadeOut("slow");
+        });
+    </script>
+</head>
+
+<body>
+<div class="se-pre-con"></div>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <div th:replace="base/nav-header :: header"></div>
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <div th:replace="base/nav-side :: navigation"></div>
+        <!-- partial -->
+        <div class="main-panel">
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+            <!-- partial -->
+            <div th:if="${template != null && templateId != null}" >
+                <div th:replace="@{${template}} :: ${templateId}"></div>
+            </div>
+<!--            <div th:replace="contents/dashboard :: content"></div>-->
+            <div th:replace="base/footer :: footer"></div>
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- plugins:js -->
+<script th:src="@{~/js/vendor.bundle.base.js}"></script>
+
+<!-- endinject -->
+<!-- Plugin js for this page-->
+
+<!-- End plugin js for this page-->
+<!-- inject:js -->
+<script th:src="@{~/js/off-canvas.js}"></script>
+<script th:src="@{~/js/misc.js}"></script>
+<script th:src="@{~/js/app.js}"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<!--<script t h : src="@{~/js/dashboard.js}"></script>-->
+<!-- End custom js for this page-->
+<script>
+
+    function fitWindow(){
+
+        const heightWindow = $(window).height();
+
+        const heightNav = $('nav.navbar').height();
+
+        const heightFooter = $('footer.footer').height();
+
+        const heightContent = $('.content-wrapper').height();
+
+        const heightMin = heightWindow - (heightNav + heightFooter + 85);
+
+        if (heightContent < heightMin) {
+            $('.content-wrapper').height(heightWindow - (heightNav + heightFooter + 85));
+        } else {
+            $('.content-wrapper').removeAttr('style');
+        }
+    }
+
+    fitWindow();
+
+</script>
+</body>
+
+</html>
